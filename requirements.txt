@@ -1,0 +1,5 @@
+bottle
+pika
+unittest-xml-reporting
+WebTest
+requests
