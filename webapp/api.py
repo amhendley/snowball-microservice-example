@@ -6,7 +6,7 @@ import os
 import sys
 import pika
 import json
-from . import queue_params
+from . import queue_params, counters_path
 
 
 def execute():
@@ -28,3 +28,16 @@ def execute():
 
     message = {'message': 'Message sent successfully', 'content': body}
     return message
+
+
+def counters():
+    c = []
+    
+    for file in os.listdir(counters_path):
+        f = open(os.path.join(counters_path, file), 'r')
+        _counter = f.read()
+        f.close()
+        
+        c.append({'guid': os.path.basename(file), 'counter': _counter})
+    
+    return json.dumps(c, indent=4)
